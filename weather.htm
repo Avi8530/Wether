@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather</title>
+  <style>
+    
+    .w2{
+   
+      height: 40%;
+      width: 40%;
+      padding-top: 5%;
+      padding-bottom: 10%;
+      border-color: blue;
+      border-style: double;
+      border: 10px;
+      color: black;
+      background-image: linear-gradient(red, yellow);
+      margin-top: 15%;
+      margin-left: 30%;
+      text-align: center;
+      border-radius: 10px;
+    
+    }
+    .body1{
+      background-image: url(https://www.researchgate.net/publication/327127036/figure/fig1/AS:661936622555136@1534829397611/Wind-map-showing-the-way-winds-are-flowing-around-the-Earth-https.png) ;
+      
+    }
+    
+  </style>
+</head>
+<body class="body1">
+ 
+    <div class="w2">
+      <input type="text" style="height: 25px;" placeholder="Enetr the city Name" id="city">
+      <button style="height: 25px;" onclick="getData()">Q</button> <br><br>
+
+      <span id="info"></span><br>
+      <span id="temp"></span><br>
+      <span id="cloud" class="class1"></span><br>
+      <span id="humidity" class="class1"></span> <br>
+      <span id="wind" class= class1></span>
+
+    </div>
+    <script>
+      async function getData()
+      {
+        const cityName = document.getElementById('city').value;
+        const api= `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=5760fd2b56df38275f29a81302c3deb8`;
+
+
+        const temp =await fetch(api);
+        const data = await temp.json();
+
+        document.getElementById("info").innerHTML =` weather in ${cityName}`;
+        document.getElementById('temp').innerHTML = `${Math.trunc(data.main.temp/10)}℃`;
+        document.getElementById('cloud').innerHTML = `pressure:${(data.main.pressure/1000)}kg/m`;
+        document.getElementById('humidity').innerHTML = `humidity: ${data.main.humidity}%`;
+        document.getElementById("wind").innerHTML =`wind:${data.wind.speed}km/h`;
+      };
+      
+    </script>
+</body>
+</html>
